@@ -1,0 +1,325 @@
+import $ from "jquery";
+import * as fabric from "fabric";
+
+
+
+
+export class App
+{
+
+  canvas: fabric.Canvas; //The FabricJS Canvas object 
+  //which will hold all the drawn elements
+  currentUIimage:HTMLElement;
+  imageOffsetY :number =0;
+  imageOffsetX :number =0;
+
+  groupBase:fabric.Group;
+
+constructor(private readonly selector: string, 
+canvasHeight: number, 
+canvasWidth: number) {
+//Replace the given element with a canvas
+$(`#${selector}`)
+.replaceWith(`<canvas id="${selector}" height=${canvasHeight} width=${canvasWidth}> </canvas>`);
+
+//Instantiate a new FabricJS Canvas on the created Canvas element.
+this.canvas = new fabric.Canvas(`${selector}`, { 
+  selection: false, //can select all elements!
+  hoverCursor: 'pointer',
+ // targetFindTolerance: 2,
+  enableRetinaScaling : true
+ });
+
+//FabricObject.prototype.transparentCorners = false;
+this.canvas.backgroundColor = 'yellow';
+
+
+
+
+/*
+let tt = new fabric.FabricText("hello text");
+this.canvas.add(tt)*/
+
+/*this.getImage(this.canvas,'../assets/arrowIcon4.png');
+
+ setTimeout(() => {
+  const element = document.getElementById("im2");
+  if(element){this.getExistingImage(this.canvas,element);}
+ }, 3000);*/
+
+ this.DragDropFromDiv();
+  //console.log(this.canvas.getWidth())
+  this.canvas.on({
+    'object:moving': (e)=> {
+      e.target.opacity = 0.5;
+      //e.target.shadow = null;
+      //moving limit
+      let limitL:number = 0;
+      let limitR:number = this.canvas.getWidth() - (e.target.width * e.target.scaleX);
+
+      let limitT:number = 0;
+      let limitb:number = this.canvas.getHeight() - (e.target.height * e.target.scaleY);
+
+      if(e.target.left <limitL){e.target.left = limitL;}
+      if(e.target.left >limitR){e.target.left = limitR;}
+
+      if(e.target.top <limitT){e.target.top = limitT;}
+      if(e.target.top >limitb){e.target.top = limitb;}
+
+      //if(e.target.width * e.target.scaleX )
+      //console.log(e.target)
+      
+    },
+    'object:modified': function(e) {
+      e.target.opacity = 1;
+    }
+  });
+
+
+
+
+  this.groupBase = new fabric.Group([], {
+    left: 0,
+    top: 0
+  });
+  this.canvas.add(this.groupBase);
+
+
+
+
+
+this.canvas.renderAll();
+
+/*setTimeout(() => {
+  this.exportCanvas();
+}, 5000);*/
+
+
+
+
+
+window.addEventListener("resize", ()=>{
+
+}, false);
+} 
+ /* var shadow = new fabric.Shadow({
+    color: "#000000",
+    blur: 3,
+ });*/
+
+  async getImage(canvas:any,url:string) {
+    console.log('ok now')
+    await fabric.FabricImage.fromURL(
+      url,
+      {crossOrigin:"anonymous"},
+      {left: 100,
+        top: 100,
+        angle: -15,
+        scaleX:2,
+        scaleY:2,
+        hasControls:true,
+       // shadow:shadow,
+        perPixelTargetFind:true,//pixelperfect
+        //strokeWidth: 2,
+	      //stroke: "#880E4F",
+       // hasBorders:false,
+        /*clipPath: new fabric.Circle({ // circular mask
+          radius: 32,
+          originX: 'center',
+          originY: 'center',
+        }),*/
+      }
+    ).then((img:fabric.FabricImage)=>{
+
+      console.log('ok now 1',img)
+
+      var duotoneFilter = new fabric.filters.Composed({
+        subFilters: [
+          //new fabric.filters.Grayscale({ mode: 'luminosity' }), // make it black and white
+          new fabric.filters.BlendColor({ color: '#ff0000' }), // apply light color
+          //new fabric.filters.BlendColor({ color: '#ff0000', mode: 'lighten' }), // apply a darker color
+        ]
+      });
+
+      img.filters = [duotoneFilter];
+     // img.scaleToWidth(480);
+      img.applyFilters();
+
+      canvas.add(img);
+      /*setTimeout(() => {
+        console.log(img)
+        img.angle = 0;
+        canvas.renderAll()
+      }, 2000);*/
+
+
+      /* clone */
+       // Using cloneAsImage method
+      /* let imgc = img.cloneAsImage({});
+       imgc.top = 300;
+       canvas.add(imgc);*/
+
+
+      /* imgc.on("mousedown",(e)=>{
+        console.log('onDown',e)
+       })*/
+
+       
+    })
+  }
+
+DragDropFromDiv(){
+
+
+  //get image width and height
+  $('.furniture').on('pointerdown', (e: any) => {
+   this.currentUIimage = e.target;
+   let w:any = $(this.currentUIimage).width();
+   let h:any = $(this.currentUIimage).height();
+   if(w && h){
+  this.imageOffsetX = w/2;
+  this.imageOffsetY = h/2;
+   }
+
+
+   //this.imageOffsetX += e.clientX - imageOffset.left;
+  //this.imageOffsetY = e.clientY - imageOffset.top;
+
+
+   //console.log('me!',event.target,w,h);
+  }
+);
+
+  const canvasContainer = $("#CC")[0];
+  canvasContainer.addEventListener('dragover', this.handleDragOver, false);
+  canvasContainer.addEventListener('drop', this.handleDrop.bind(this), false);
+}
+handleDragOver(e:any) {
+  if (e.preventDefault) {e.preventDefault();}
+  e.dataTransfer.dropEffect = 'copy';
+  return false;
+}
+
+
+handleDrop(e:any) {
+  console.log(e,window.innerHeight)
+  e = e;
+
+  if (e.preventDefault) {e.preventDefault();}
+  if (e.stopPropagation) {e.stopPropagation();}
+
+  var offset = $("#canvas").offset();
+  var y = 0;
+  var x = 0;
+
+  if(offset){
+    y = e.clientY - (offset.top + this.imageOffsetY);
+    x = e.clientX - (offset.left + this.imageOffsetX);
+    /*console.log("e.clientY" ,e.clientY)
+    console.log("offset.top" ,offset.top)
+    console.log("imageOffsetY" ,this.imageOffsetY)*/
+  }
+ //console.log("drop it at" ,x,y,e.target)
+
+
+
+  if(this.currentUIimage){this.getExistingImage(this.canvas,this.currentUIimage,x,y)}
+
+  return false;
+}
+
+
+
+  async getExistingImage(canvas:any,element:HTMLElement,x:number,y:number) {
+    console.log("e",typeof element,x,y)
+    await fabric.FabricImage.fromObject(element).then((img:any)=>{
+    //  console.log('ok now 2',img)
+
+     /* img.scaleToWidth(32)
+      img.scaleToHeight(32)
+      img.scaleX=2;
+      img.scaleY=2;
+      */
+
+    
+      
+
+     // console.log('this.currentUIimage',this.currentUIimage);
+     // console.log($(this.currentUIimage).attr('class'));
+      if($(this.currentUIimage).attr('class') == "baseimg"){
+        //accept only one
+        let _children:any = this.groupBase.getObjects();
+        if(_children.length > 0){
+          this.groupBase.removeAll();
+         }
+        
+         //this.groupBase.set('selectable', false); 
+         //place in the
+         img.left = this.canvas.getWidth()/2;
+         img.top= this.canvas.getHeight()/2;
+         img.originX= 'center';
+         img.originY= 'center';
+         this.groupBase.add(img);
+
+      }else{
+        this.canvas.add(img);
+        img.left = x;
+        img.top= y;
+      }
+
+
+      canvas.renderAll();
+    })
+    
+    //  
+  }
+
+
+ exportCanvas(){
+ 
+  const dataURL = this.canvas.toDataURL({
+    multiplier: 1,
+    format: 'png',
+    quality: 1,
+    enableRetinaScaling: false
+});
+const link = document.createElement('a');
+link.download = 'image.png';
+link.href = dataURL;
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
+}
+
+
+
+
+
+
+
+
+ 
+  }
+
+$(function () {
+
+
+   //Calculate canvas height as function of window, 
+            //to accommodate different screen sizes
+            var canvasHeight = 800;//window.innerHeight * 1;
+            //Calculate canvas width
+            var canvasWidth =  800;
+
+             new App('canvas', canvasHeight, canvasWidth);
+
+
+           
+
+         
+
+
+            
+
+         
+
+});
