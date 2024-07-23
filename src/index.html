@@ -3,15 +3,11 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Fabric1</title>  
+    <title>Onam</title>  
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="css/bootstrap.min.css"> <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="css/style.css">
     <script src='./js/bootstrap.bundle.min.js'></script>
-   
-
-
-
 
 </head>
 <body>
@@ -20,50 +16,154 @@
 
       <!-- html structure -->
       <div class="container-fluid h-100 w-100" style="padding: 0; margin: 0;">
+       
+        <div class="row m-0 p-0" style="width: 100%;">
+        
+          <div class="gameDiv p-0 col-12" style="position: relative;">
 
-        <div class="row" style="height: 100%;">
-          <div class="gameDiv d-flex justify-content-center col-9 m-0 p-0 ">
-            <div class="CanvasContainer" id="CC">
+            <div class="CanvasContainer" id="CC" style="position: relative;">
               <div id="canvas"></div>
           </div>
-          </div>
-          <div class="toolDiv justify-content-center col-3 m-0 p-0 ">
+         
+            <img id='cadre' src="./assets/1x/board_02.png">
 
+            <div class="btnsL justify-content-center">
+              <div  class="BT baseBtn"><img  src="./assets/baseBtn.png"><p>Base<br/>Design</p></div> 
+              <div class="BT shapeBtn"><img  src="./assets/shapeBtn.png"><p>Shapes &<br/>Designs</p></div> 
+              <div class="BT flowerBtn"><img    src="./assets/flowerBtn.png"><p style="line-height: 3.2vh;">Flowers</p></div> 
+              <div class="BT ExtraBtn"><img   src="./assets/share.png"><p style="line-height: 3.2vh;">Share</p></div> 
+              <div class="BT profileBtn"><img    src="./assets/submit.png"><p style="line-height: 3.2vh;">Submit</p></div> 
+            </div> 
+
+          </div>
+
+          <div class="toolDiv justify-content-center p-0 ">
                 <div class="row" >
-                <div class="base justify-content-center col-12 mb-1 p-2 ">
-                  <img class="baseimg" draggable="true" src="./assets/b1.png">
-                  <img class="baseimg" draggable="true" src="./assets/b2.png">
-                  <img class="baseimg" draggable="true" src="./assets/b3.png">
-                  <img class="baseimg" draggable="true" src="./assets/b4.png">
-                  <img class="baseimg" draggable="true" src="./assets/b5.png">
+                 <div class="topTool">
+                  <div class="justify-content-center m-0 p-0 "style="text-align: center; width:5%">
+                    <div style="visibility: hidden;">
+                      <img style="width: auto; height: 6vh; cursor: pointer;" src="./assets/trash-bin.png">
+                      <p style="margin-top: 1px;">TXT</p>
+                    </div>
+                  </div>
+                  <div  class="justify-content-center m-0 p-0 "style="text-align: center;width:50%">
+                    <div class="tool d-flex justify-content-center">
+                    <div class="tool c1"></div>
+                    <div class="tool c2"></div>
+                    <div class="tool c3"></div>
+                    <div class="tool c4"></div>
+                    <div class="tool c5"></div><br/>
+                  </div>
+                    <p class="tool" style="margin-top: 1px;margin-left: 2px;margin-right: 2px;">Select Color</p>
+                  </div>
+                  <div  id="removeObj" class=" justify-content-center m-0 p-0 "style="text-align: center; width:10%">
+                    <div class="tool">
+                    <img  style="width: auto; height: 6vh; cursor: pointer;" src="./assets/trash-bin.png">
+                    <p style="margin-top: 1px;margin-left: 2px;margin-right: 2px;">Delete</p>
+                  </div>
+                  </div>
+                  <div  id="rotate_Obj" class=" justify-content-center m-0 p-0 "style="text-align: center; width:10%">
+                    <div class="tool">
+                      <img  style="width: auto; height: 6vh; cursor: pointer;" src="./assets/rotate.png">
+                      <p style="margin-top: 1px;margin-left: 2px;margin-right: 2px;">Rotate</p>
+                    </div>
+                  </div>
+
+                
+                  <div  id="undo_Obj" class=" justify-content-center m-0 p-0 "style="text-align: center; width:10%">
+                    <div class="tool">
+                      <img  style="width: auto; height: 6vh; cursor: pointer;" src="./assets/undo.png">
+                      <p style="margin-top: 1px;margin-left: 2px;margin-right: 2px;">Undo</p>
+                     </div>
+                  </div>
+                 
+                 
+                  <div  id="cloneObj" class=" justify-content-center m-0 p-0 "style="text-align: center; width:10%">
+                    <div class="tool">
+                     <img  style="width: auto; height: 6vh; cursor: pointer;" src="./assets/cloneBt.png">
+                     <p style="margin-top: 1px;margin-left: 2px;margin-right: 2px;">Clone</p>
+                    </div>
+                   </div>
+                   
                 </div>
-                <div class="flowers justify-content-center col-12 p-2 " style="text-align: center;">
-                  <img class="Fimg" draggable="true" src="./assets/fl1.png"><br>
-                  <img class="Fimg" draggable="true" src="./assets/fl2.png"><br>
-                  <img class="Fimg" draggable="true" src="./assets/fl3.png"><br>
-                  <img class="Fimg" draggable="true" src="./assets/fl4.png"><br>
-                  <img class="Fimg" draggable="true" src="./assets/fl5.png"><br>
-                  <img class="Fimg" draggable="true" src="./assets/fl6.png"><br>
-                  <img class="Fimg" draggable="true" src="./assets/fl7.png">
+                  
+                  
+                  
+
+                <div class="justify-content-end col-2 m-0 p-0">
+                  <img class="arrow" id="aleft" src="./assets/nav.png" style="
+                    transform: rotate(180deg); margin-left: 20%;">
+                </div>
+                <div class="base justify-content-center col-8 mb-1">
+                  <!--all flowers-->
+                  <img class="Fimg" draggable="true" src="./assets/Asset 1.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 2.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 3.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 4.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 5.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 6.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 7.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 8.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 9.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 10.png">
+
+                  <img class="Fimg" draggable="true" src="./assets/Asset 11.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 12.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 13.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 14.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 15.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 16.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 17.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 18.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 19.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 20.png">
+
+                  <img class="Fimg" draggable="true" src="./assets/Asset 21.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 22.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 23.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 24.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 25.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 26.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 27.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 28.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 29.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 30.png">
+
+                  <img class="Fimg" draggable="true" src="./assets/Asset 31.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 32.png">
+                  <img class="Fimg" draggable="true" src="./assets/Asset 33.png">
+
+                  <!--all bases-->
+                  <img class="baseimg" draggable="true" src="./assets/b3.png">
+                  <img class="baseimg" draggable="true" src="./assets/b2.png">
+                  <img class="baseimg" draggable="true" src="./assets/b1.png">
+                  <!-- all shapes -->
+                  <img class="Simg" draggable="true" src="./assets/sh1.png">
+                  <img class="Simg" draggable="true" src="./assets/sh2.png">
+                  <img class="Simg" draggable="true" src="./assets/sh3.png">
+                  <img class="Simg" draggable="true" src="./assets/sh4.png">
+                  <img class="Simg" draggable="true" src="./assets/sh5.png">
+
+                </div>
+                <div class="justify-content-start col-2 m-0 p-0">
+                  <img class="arrow" id="aright" src="./assets/nav.png">
+                </div>
+                <!-- buttons in portrait mode-->
+                <div class="justify-content-center col-2 m-0 p-0"></div>
+                <div class="btnsP justify-content-center col-8" style="text-align: center;">
+                <div  class="BT baseBtn"><img  src="./assets/baseBtn.png"><p>Base<br/>Design</p></div> 
+                <div class="BT shapeBtn"><img  src="./assets/shapeBtn.png"><p>Shapes &<br/>Designs</p></div> 
+                <div class="BT flowerBtn"><img    src="./assets/flowerBtn.png"><p style="line-height: 3.2vh;">Flowers</p></div> 
+                <div class="BT ExtraBtn"><img   src="./assets/share.png"><p style="line-height: 3.2vh;">Share</p></div> 
+                <div class="BT profileBtn"><img    src="./assets/submit.png"><p style="line-height: 3.2vh;">Submit</p></div> 
                 </div> 
+                <div class="justify-content-center col-2 m-0 p-0"></div>
               </div>
 
               </div>
 
-              
-               
-             
-
-          </div>
-       
-          <div class="minTool">
-            <input type="text" data-coloris  class="coloris instance1" style="width: 94px; margin-bottom:5px ;">
-            <img id="removeObj" style="width: 32px; cursor: pointer;" src="./assets/trash-bin.png">
-            <img id="cloneObj" style="width: 50px; cursor: pointer;" src="./assets/cloneBt.png">
-          </div>
-
-          <div class="bts">
-            <img src="./assets/saveBt.png">
+          <div class="logoDiv p-0 m-0 col-12 justify-content-center">
+            <img src="./assets/logo.png">
           </div>
       </div>
         
@@ -71,8 +171,26 @@
     
 
 
-       
+      <script>
+        var CanvasColor = '#ff0000';
+      </script>  
       <script src='main.js'></script>  
+
+
+<div id="orientationDiv" style="
+position: absolute;
+left:50%;
+top:50%;
+width:100%;
+height: 100%;
+background-color: black;
+transform: translate(-50%, -50%);
+text-align: center;
+z-index: 2;">
+<img src="./assets/orientation.jpg" style="
+width: auto; height: 50%; margin-top: 15%;
+transform: rotate(90deg);">
+</div>
 </body>
 </html>
 
